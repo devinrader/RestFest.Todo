@@ -8,6 +8,7 @@ namespace RestFest.Todo.Website.Models
 {
     public class Item : Resource
     {
+        [NeverShow]
         public int Id { get; set; }
         public int Priority { get; set; }
         public string Title { get; set; }

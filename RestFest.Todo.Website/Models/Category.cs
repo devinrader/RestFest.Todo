@@ -8,6 +8,7 @@ namespace RestFest.Todo.Website.Models
 {
     public class Category : Resource
     {
+        [NeverShow]
         public int Id { get; set; }
         public string Title { get; set; }
         public DateTime DateCreated { get; private set; }
