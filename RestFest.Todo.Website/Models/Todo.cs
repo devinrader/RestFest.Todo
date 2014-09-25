@@ -15,7 +15,7 @@ namespace RestFest.Todo.Website.Models
         public Category Category { get; set; }
         public User Owner { get; set; }
         public User AssignedTo { get; set; }
-        public DateTime DateCreated { get; }
-        public DateTime DateUpdate { get; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdate { get; set; }
     }
 }

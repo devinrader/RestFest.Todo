@@ -13,8 +13,8 @@ namespace RestFest.Todo.Website.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Avatar { get; set; }
-        public DateTime DateCreated { get; }
-        public DateTime DateUpdate { get; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdate { get; set; }
         public User Owner { get; set; }
 
     }
