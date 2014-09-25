@@ -132,9 +132,9 @@ namespace RestFest.Todo.Website.Controllers
             item.Owner = UserController._users.FirstOrDefault(u => u.Id == userid);
 
             item.Relations.Add("self", new Link { Href = Url.Link("GetItem", new { userid=userid, itemid = item.Id }) });
-            //item.Relations.Add("complete", new Link { Href = "http://restfesttodo.azurewebsites.net/User/" + item.Id.ToString() + "/Items/" + i.Id.ToString() + "/Complete" });
-            //item.Relations.Add("incomplete", new Link { Href = "http://restfesttodo.azurewebsites.net/User/" + item.Id.ToString() + "/Items/" + i.Id.ToString() + "/Incomplete" });
-            //item.Relations.Add("assign", new Link { Href = "http://restfesttodo.azurewebsites.net/User/" + i.Owner.Id.ToString() + "/Items/" + i.Id.ToString() + "/Assign" });
+            item.Relations.Add("complete", new Link { Href = "http://restfesttodo.azurewebsites.net/Users/" + item.Owner.Id.ToString() + "/Items/" + item.Id.ToString() + "/Complete" });
+            item.Relations.Add("incomplete", new Link { Href = "http://restfesttodo.azurewebsites.net/Users/" + item.Owner.Id.ToString() + "/Items/" + item.Id.ToString() + "/Incomplete" });
+            item.Relations.Add("assign", new Link { Href = "http://restfesttodo.azurewebsites.net/Users/" + item.Owner.Id.ToString() + "/Items/" + item.Id.ToString() + "/Assign" });
 
             _items.Add(item);
             return Created(Url.Link("GetItem", new { itemId = item.Id }), item);
