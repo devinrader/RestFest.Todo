@@ -11,8 +11,9 @@ namespace RestFest.Todo.Website.Controllers
     public class HomeController : ApiController
     {
         [Route("Categories")]
-        public List<Category> Categories { get; private set; }
+        public List<Category> getCategories() { return null; }
+
         [Route("Users")]
-        public List<User> Users { get; private set; }
+        public List<User> GetUsers() { return null; }
     }
 }
