@@ -95,23 +95,63 @@ namespace RestFest.Todo.Website.Controllers
             return Ok(item);
         }
 
-        [Route("Users/{userid}/Items/{itemid}/Complete", Name = "MakeItemComplete")]
-        public IHttpActionResult MakeItemComplete(int userid, int itemid) { return null; }
+        [Route("Users/{userid}/Items/{itemid}/Complete", Name = "PutItemComplete")]
+        public IHttpActionResult PutItemComplete(int userid, int itemid)
+        {
+            var item = _items.FirstOrDefault(i => i.Id == itemid);
+            if (item == null)
+            {
+                return NotFound();
+            }
 
-        [Route("Users/{userid}/Items/{itemid}/Incomplete", Name = "MakeItemIncomplete")]
-        public IHttpActionResult MakeItemIncomplete(int userid, int itemid) { return null; }
+            item.IsComplete = true;
+            return Ok();
+        }
+
+        [Route("Users/{userid}/Items/{itemid}/Incomplete", Name = "PutItemIncomplete")]
+        public IHttpActionResult PutItemIncomplete(int userid, int itemid) {
+            var item = _items.FirstOrDefault(i => i.Id == itemid);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            item.IsComplete = false;
+            return Ok();
+        }
 
 
         [Route("Users/{userid}/Items", Name="PostItem")]
         public IHttpActionResult PostItem(int userid, Item item)
         {
-            //TODO: When creating a new item, is the client 
             item.Id = _items.Max(p => p.Id) + 1;
+            
             item.Owner = UserController._users.FirstOrDefault(u => u.Id == userid);
+
             item.Relations.Add("self", new Link { Href = Url.Link("GetItem", new { userid=userid, itemid = item.Id }) });
 
             _items.Add(item);
             return Created(Url.Link("GetItem", new { itemId = item.Id }), item);
+        }
+
+        [Route("Users/{userid}/Items/{itemid}/Assign")]
+        public IHttpActionResult PutAssignment(int userid, int itemid, [FromBody]string username)
+        {            
+            var item = _items.FirstOrDefault(i => i.Id == itemid);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            var user = UserController._users.FirstOrDefault(u => u.Username == username);
+
+            if (user == null)
+            {
+                return BadRequest("Specified username not found");
+            }
+
+            item.AssignedTo = user;
+            return Ok();
         }
     }
 }

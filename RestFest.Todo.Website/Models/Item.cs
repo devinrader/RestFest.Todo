@@ -17,6 +17,7 @@ namespace RestFest.Todo.Website.Models
         public Category Category { get; set; }
         public User Owner { get; set; }
         public User AssignedTo { get; set; }
+        public bool IsComplete { get; set; }
 
         public string Status { get; set; }
 
