@@ -1,11 +1,12 @@
-﻿using System;
+﻿using PointW.ResourceModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace RestFest.Todo.Website.Models
 {
-    public class User
+    public class User : Resource
     {
         public int Id { get; set; }
         public string Username { get; set; }
