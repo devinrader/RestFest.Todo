@@ -35,6 +35,12 @@ namespace RestFest.Todo.Website.Controllers
                         Title = "Blue"
                     }
                 };
+
+                foreach (var c in _categories)
+                {
+                    c.Relations.Add("self", new Link { Href = "http://restfesttodo.azurewebsites.net/Categories/" + c.Id.ToString() });
+                }
+
             }
         }
 
@@ -56,10 +62,12 @@ namespace RestFest.Todo.Website.Controllers
             return Ok(user);
         }
 
-        [Route("Categories", Name = "PostCategories")]
+        [Route("Categories", Name = "PostCategory")]
         public IHttpActionResult PostCategory(Category category)
         {
             category.Id = _categories.Max(p => p.Id) + 1;
+            category.Relations.Add("self", new Link { Href = Url.Link("GetCategory", new { categoryid = category.Id }) });
+
             _categories.Add(category);
             return Created(Url.Link("GetCategory", new { categoryId = category.Id }), category);
         }

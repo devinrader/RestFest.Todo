@@ -46,6 +46,11 @@ namespace RestFest.Todo.Website.Controllers
                         Status="open"
                     }
                 };
+
+                foreach (var i in _items)
+                {
+                    i.Relations.Add("self", new Link { Href = "http://restfesttodo.azurewebsites.net/User/" + i.Owner.Id.ToString() + "/Items/" + i.Id.ToString() });
+                }
             }
 
         }
@@ -94,6 +99,18 @@ namespace RestFest.Todo.Website.Controllers
         public IHttpActionResult MakeItemComplete(int userid, int itemid) { return null; }
 
         [Route("Users/{userid}/Items/{itemid}/Incomplete", Name = "MakeItemIncomplete")]
-        public IHttpActionResult MakeItemIncomplete(int userid, int itemid) { return null; }    
+        public IHttpActionResult MakeItemIncomplete(int userid, int itemid) { return null; }
+
+
+        [Route("Users/{userid}/Items", Name="PostItem")]
+        public IHttpActionResult PostItem(int userid, Item item)
+        {
+            //TODO: When creating a new item, is the client 
+            item.Id = _items.Max(p => p.Id) + 1;
+            item.Relations.Add("self", new Link { Href = Url.Link("GetItem", new { userid=userid, itemid = item.Id }) });
+
+            _items.Add(item);
+            return Created(Url.Link("GetItem", new { itemId = item.Id }), item);
+        }
     }
 }
