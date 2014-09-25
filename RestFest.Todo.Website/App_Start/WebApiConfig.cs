@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 
 using PointW.MediaTypes.Formatters.Hal;
+using System.Web.Http.Cors;
 
 namespace RestFest.Todo.Website
 {
@@ -14,6 +15,9 @@ namespace RestFest.Todo.Website
             // Web API configuration and services
 
             // Web API routes
+            var cors = new EnableCorsAttribute("restfesttodo.azurewebsites.net", "*", "*");
+            config.EnableCors(cors);
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -22,6 +26,7 @@ namespace RestFest.Todo.Website
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            
             config.Formatters.Clear();
             config.Formatters.Add(new HalJsonMediaTypeFormatter { Indent=true });
         }
