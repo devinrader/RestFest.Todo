@@ -23,7 +23,7 @@ namespace RestFest.Todo.Website
             );
 
             config.Formatters.Clear();
-            config.Formatters.Add(new HalJsonMediaTypeFormatter());
+            config.Formatters.Add(new HalJsonMediaTypeFormatter { Indent=true });
         }
     }
 }

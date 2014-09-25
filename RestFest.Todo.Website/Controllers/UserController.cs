@@ -42,6 +42,11 @@ namespace RestFest.Todo.Website.Controllers
                         Username = "lneilson"
                     }
                 };
+
+                foreach (var u in _users)
+                {
+                    u.Relations.Add("self", new Link { Href = Url.Link("GetUser", new { userid = u.Id }) });
+                }
             }
         }
 
@@ -70,6 +75,9 @@ namespace RestFest.Todo.Website.Controllers
         public IHttpActionResult PostUser(User user)
         {
             user.Id = _users.Max(p => p.Id) + 1;
+            user.Relations.Add("self", new Link { Href = Url.Link("GetUser", new { userid = user.Id }) });
+
+            
             _users.Add(user);
             return Created(Url.Link("GetUser", new {userId = user.Id}), user);
         }
