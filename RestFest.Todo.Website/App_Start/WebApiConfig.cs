@@ -15,7 +15,7 @@ namespace RestFest.Todo.Website
             // Web API configuration and services
 
             // Web API routes
-            var cors = new EnableCorsAttribute("restfesttodo.azurewebsites.net", "*", "*");
+            var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
 
             config.MapHttpAttributeRoutes();
