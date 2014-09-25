@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+using PointW.ResourceModel;
+
 namespace RestFest.Todo.Website.Controllers
 {
     public class UserController : ApiController
@@ -21,6 +23,11 @@ namespace RestFest.Todo.Website.Controllers
         public IHttpActionResult GetUsers() 
         { 
             var users = _context.Users; 
+
+            var usersResourceList = new SimpleResourceList<User>();
+            //usersResourceList.Items = users.Select(;
+
+            return Ok(usersResourceList);
         }
 
         [Route("Users/{userid}/", Name="GetUser")]

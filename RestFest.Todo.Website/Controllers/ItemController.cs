@@ -14,9 +14,10 @@ namespace RestFest.Todo.Website.Controllers
         [Route("Users/{userid}/Items/Open", Name = "GetOpenItems")]
         public List<Item> GetOpenItems(int userid)
         {
-            var context = new TodoDataContext();
+            //var context = new TodoDataContext();
 
-            return context.Select();
+            //return context.Select();
+            return null;
         }
 
     }
