@@ -8,7 +8,8 @@ namespace RestFest.Todo.Website.Models
 {
     public class User : Resource
     {
-        public int Id { get; private set; }
+        [NeverShow]
+        public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }

@@ -12,32 +12,67 @@ namespace RestFest.Todo.Website.Controllers
 {
     public class UserController : ApiController
     {
-        TodoDataContext _context;
+        // TodoDataContext _context;
+        private static List<User> _users;
 
         public UserController()
         {
-            _context = TodoDataContext.Current();
+            // _context = TodoDataContext.Current();
+            if (_users == null)
+            {
+                _users = new List<User>
+                {
+                    new User
+                    {
+                        Id = 1,
+                        FirstName = "Pat",
+                        LastName = "Smith",
+                        Username = "psmith"
+                    },
+                    new User
+                    {
+                        Id = 2,
+                        FirstName = "Darcy",
+                        LastName = "Jones",
+                        Username = "djones"
+                    },
+                    new User
+                    {
+                        Id = 3,
+                        FirstName = "Leslie",
+                        LastName = "Neilson",
+                        Username = "lneilson"
+                    }
+                };
+            }
         }
 
         [Route("Users", Name = "GetUsers")]
         public IHttpActionResult GetUsers() 
         { 
-            var users = _context.Users; 
+            // var users = _context.Users;
 
             var usersResourceList = new SimpleResourceList<User>();
-            //usersResourceList.Items = users.Select(;
+
+            //var usersResourceList = new SimpleResourceList<User>();
+            usersResourceList.Items = _users;
 
             return Ok(usersResourceList);
         }
 
         [Route("Users/{userid}/", Name="GetUser")]
-        public User GetUser(int userid) { return null; }
+        public User GetUser(int userid)
+        {
+            return _users.FirstOrDefault(u => u.Id == userid);
+        }
 
 
         [Route("Users/", Name="PostUser")]
-        public User PostUser(User category)
+        public IHttpActionResult PostUser(User user)
         {
-            return null;
+            user.Id = _users.Max(p => p.Id) + 1;
+            _users.Add(user);
+            return Created(Url.Link("GetUser", new {userId = user.Id}), user);
         }
     }
 }
