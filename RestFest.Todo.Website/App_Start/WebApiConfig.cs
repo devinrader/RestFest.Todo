@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
+using PointW.MediaTypes.Formatters.Hal;
+
 namespace RestFest.Todo.Website
 {
     public static class WebApiConfig
@@ -19,6 +21,8 @@ namespace RestFest.Todo.Website
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.Add(new HalJsonMediaTypeFormatter());
         }
     }
 }
