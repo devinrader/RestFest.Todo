@@ -107,6 +107,7 @@ namespace RestFest.Todo.Website.Controllers
                 return NotFound();
             }
 
+            item.Status = "closed";
             item.IsComplete = true;
             return Ok();
         }
@@ -119,6 +120,7 @@ namespace RestFest.Todo.Website.Controllers
                 return NotFound();
             }
 
+            item.Status = "open"; 
             item.IsComplete = false;
             return Ok();
         }
