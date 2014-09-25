@@ -24,20 +24,23 @@ namespace RestFest.Todo.Website.Controllers
                     {
                         Id = 1,
                         Title = "foo",
-                        Text="Todo this"
+                        Text="Todo this",
+                        Owner=UserController._users[0]
 
                     },
                     new Item
                     {
                         Id = 2,
                         Title = "bar",
-                        Text="Todo that"
+                        Text="Todo that",
+                        Owner=UserController._users[0]
                     },
                     new Item
                     {
                         Id = 3,
                         Title = "bleh",
-                        Text="Todo stuff"
+                        Text="Todo stuff",
+                        Owner=UserController._users[1]
                     }
                 };
             }
@@ -49,8 +52,8 @@ namespace RestFest.Todo.Website.Controllers
         {
             var items = _items.Where(i=>i.Owner.Id == userid);
 
-            var usersResourceList = new SimpleResourceList<Item>();
-            usersResourceList.Items = items.ToList();
+            var itemsResourceList = new SimpleResourceList<Item>();
+            itemsResourceList.Items = items.ToList();
 
             return Ok(items);            
         }

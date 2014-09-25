@@ -12,7 +12,7 @@ namespace RestFest.Todo.Website.Controllers
 {
     public class UserController : ApiController
     {
-        private static List<User> _users;
+        public static List<User> _users;
 
         public UserController()
         {
@@ -55,9 +55,12 @@ namespace RestFest.Todo.Website.Controllers
         }
 
         [Route("Users/{userid}/", Name="GetUser")]
-        public User GetUser(int userid)
+        public IHttpActionResult GetUser(int userid)
         {
-            return _users.FirstOrDefault(u => u.Id == userid);
+            var user = _users.FirstOrDefault(u => u.Id == userid);
+            user.Relations.Add("items", new Link() { Href = Url.Link("GetItems", new { userid = userid }) });
+
+            return Ok(user);
         }
 
 
