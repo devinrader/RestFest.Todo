@@ -25,21 +25,24 @@ namespace RestFest.Todo.Website.Controllers
                         Id = 1,
                         FirstName = "Pat",
                         LastName = "Smith",
-                        Username = "psmith"
+                        Username = "psmith",
+                        PhoneNumber = "13144586142"
                     },
                     new User
                     {
                         Id = 2,
                         FirstName = "Darcy",
                         LastName = "Jones",
-                        Username = "djones"
+                        Username = "djones",
+                        PhoneNumber = "15555555555"
                     },
                     new User
                     {
                         Id = 3,
                         FirstName = "Leslie",
                         LastName = "Neilson",
-                        Username = "lneilson"
+                        Username = "lneilson",
+                        PhoneNumber = "15556666666"
                     }
                 };
 
@@ -59,7 +62,16 @@ namespace RestFest.Todo.Website.Controllers
             return Ok(usersResourceList);
         }
 
-        [Route("Users/{userid}/", Name="GetUser")]
+        [Route("Users", Name = "GetUsersByPhoneNumber")]
+        public IHttpActionResult GetUsers(string phonenumber)
+        {
+            var usersResourceList = new SimpleResourceList<User>();
+            usersResourceList.Items = _users.Where(u => u.PhoneNumber == phonenumber).ToList();
+
+            return Ok(usersResourceList);
+        }
+
+        [Route("Users/{userid}/", Name = "GetUser")]
         public IHttpActionResult GetUser(int userid)
         {
             var user = _users.FirstOrDefault(u => u.Id == userid);
@@ -69,7 +81,6 @@ namespace RestFest.Todo.Website.Controllers
 
             return Ok(user);
         }
-
 
         [Route("Users/", Name="PostUser")]
         public IHttpActionResult PostUser(User user)
