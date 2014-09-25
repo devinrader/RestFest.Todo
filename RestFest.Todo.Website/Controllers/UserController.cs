@@ -45,7 +45,7 @@ namespace RestFest.Todo.Website.Controllers
 
                 foreach (var u in _users)
                 {
-                    u.Relations.Add("self", new Link { Href = Url.Link("GetUser", new { userid = u.Id }) });
+                    u.Relations.Add("self", new Link { Href = "http://restfesttodo.azurewebsites.net/Users/" + u.Id.ToString() });
                 }
             }
         }
