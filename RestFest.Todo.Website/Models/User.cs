@@ -16,6 +16,5 @@ namespace RestFest.Todo.Website.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdate { get; set; }
         public User Owner { get; set; }
-
     }
 }

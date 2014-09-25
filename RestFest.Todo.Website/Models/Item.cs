@@ -5,7 +5,7 @@ using System.Web;
 
 namespace RestFest.Todo.Website.Models
 {
-    public class Todo
+    public class Item
     {
         public int Id { get; set; }
         public int Priority { get; set; }
