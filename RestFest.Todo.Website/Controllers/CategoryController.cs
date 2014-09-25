@@ -22,17 +22,17 @@ namespace RestFest.Todo.Website.Controllers
                     new Category
                     {
                         Id = 1,
-                        Title = "Pat"
+                        Title = "Red"
                     },
                     new Category
                     {
                         Id = 2,
-                        Title = "Darcy"
+                        Title = "Green"
                     },
                     new Category
                     {
                         Id = 3,
-                        Title = "Leslie"
+                        Title = "Blue"
                     }
                 };
             }
