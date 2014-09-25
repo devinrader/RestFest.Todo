@@ -1,4 +1,5 @@
-﻿using RestFest.Todo.Website.Models;
+﻿using PointW.ResourceModel;
+using RestFest.Todo.Website.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,22 +11,57 @@ namespace RestFest.Todo.Website.Controllers
 {
     public class CategoryController : ApiController
     {
+        private static List<Category> _categories;
+
+        public CategoryController()
+        {
+            if (_categories == null)
+            {
+                _categories = new List<Category>
+                {
+                    new Category
+                    {
+                        Id = 1,
+                        Title = "Pat"
+                    },
+                    new Category
+                    {
+                        Id = 2,
+                        Title = "Darcy"
+                    },
+                    new Category
+                    {
+                        Id = 3,
+                        Title = "Leslie"
+                    }
+                };
+            }
+        }
+
         [Route("Categories", Name = "GetCategories")]
         public IHttpActionResult GetCategories() 
-        { 
-            return null; 
+        {
+            var usersResourceList = new SimpleResourceList<Category>();
+            usersResourceList.Items = _categories;
+
+            return Ok(usersResourceList);
+
         }
 
         [Route("Categories/{categoryid}", Name = "GetCategory")]
         public IHttpActionResult GetCategory(int categoryid)
         {
-            return null;
+            var user = _categories.FirstOrDefault(u => u.Id == categoryid);
+
+            return Ok(user);
         }
 
         [Route("Categories", Name = "PostCategories")]
         public IHttpActionResult PostCategory(Category category)
         {
-            return null;
+            category.Id = _categories.Max(p => p.Id) + 1;
+            _categories.Add(category);
+            return Created(Url.Link("GetCategory", new { categoryId = category.Id }), category);
         }
     }
 }

@@ -12,12 +12,10 @@ namespace RestFest.Todo.Website.Controllers
 {
     public class UserController : ApiController
     {
-        // TodoDataContext _context;
         private static List<User> _users;
 
         public UserController()
         {
-            // _context = TodoDataContext.Current();
             if (_users == null)
             {
                 _users = new List<User>
@@ -50,11 +48,7 @@ namespace RestFest.Todo.Website.Controllers
         [Route("Users", Name = "GetUsers")]
         public IHttpActionResult GetUsers() 
         { 
-            // var users = _context.Users;
-
             var usersResourceList = new SimpleResourceList<User>();
-
-            //var usersResourceList = new SimpleResourceList<User>();
             usersResourceList.Items = _users;
 
             return Ok(usersResourceList);
