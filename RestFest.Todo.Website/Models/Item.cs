@@ -8,7 +8,7 @@ namespace RestFest.Todo.Website.Models
 {
     public class Item : Resource
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public int Priority { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
@@ -16,7 +16,7 @@ namespace RestFest.Todo.Website.Models
         public Category Category { get; set; }
         public User Owner { get; set; }
         public User AssignedTo { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdate { get; set; }
+        public DateTime DateCreated { get; private set; }
+        public DateTime DateUpdate { get; private set; }
     }
 }
