@@ -10,20 +10,25 @@ namespace RestFest.Todo.Website.Controllers
 {
     public class UserController : ApiController
     {
-        [Route("Users")]
-        public List<User> Get()
+        TodoDataContext _context;
+
+        public UserController()
         {
-            return null;
+            _context = TodoDataContext.Current();
         }
 
-        [Route("Users/{userId}")]
-        public User Get(int userId)
-        {
-            return null;
+        [Route("Users", Name = "GetUsers")]
+        public IHttpActionResult GetUsers() 
+        { 
+            var users = _context.Users; 
         }
 
-        [Route("Users/")]
-        public User Post(User category)
+        [Route("Users/{userid}/", Name="GetUser")]
+        public User GetUser(int userid) { return null; }
+
+
+        [Route("Users/", Name="PostUser")]
+        public User PostUser(User category)
         {
             return null;
         }

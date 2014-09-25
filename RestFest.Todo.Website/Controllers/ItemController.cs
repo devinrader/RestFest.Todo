@@ -11,22 +11,13 @@ namespace RestFest.Todo.Website.Controllers
 {
     public class ItemController : ApiController
     {
-        [Route("Items")]
-        public List<Item> Get()
+        [Route("Users/{userid}/Items/Open", Name = "GetOpenItems")]
+        public List<Item> GetOpenItems(int userid)
         {
-            return null;
+            var context = new TodoDataContext();
+
+            return context.Select();
         }
 
-        [Route("Items/{itemId}")]
-        public Item Get(int itemId)
-        {
-            return null;
-        }
-
-        [Route("Items")]
-        public Item Post(Item item)
-        {
-            return null;
-        }
     }
 }

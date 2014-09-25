@@ -10,17 +10,17 @@ namespace RestFest.Todo.Website.Controllers
 {
     public class CategoryController : ApiController
     {
-        public List<Category> Get()
+        [Route("Categories", Name = "GetCategories")]
+        public List<Category> GetCategories() { return null; }
+
+        [Route("Categories/{categoryid}", Name = "GetCategory")]
+        public Category GetCategory(int id)
         {
             return null;
         }
 
-        public Category Get(int id)
-        {
-            return null;
-        }
-
-        public Category Post(Category category)
+        [Route("Categories", Name = "PostCategories")]
+        public Category PostCategory(Category category)
         {
             return null;
         }

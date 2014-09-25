@@ -22,6 +22,7 @@ namespace RestFest.Todo.Website
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Formatters.Clear();
             config.Formatters.Add(new HalJsonMediaTypeFormatter());
         }
     }
