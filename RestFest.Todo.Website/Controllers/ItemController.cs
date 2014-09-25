@@ -107,6 +107,7 @@ namespace RestFest.Todo.Website.Controllers
         {
             //TODO: When creating a new item, is the client 
             item.Id = _items.Max(p => p.Id) + 1;
+            item.Owner = UserController._users.FirstOrDefault(u => u.Id == userid);
             item.Relations.Add("self", new Link { Href = Url.Link("GetItem", new { userid=userid, itemid = item.Id }) });
 
             _items.Add(item);
