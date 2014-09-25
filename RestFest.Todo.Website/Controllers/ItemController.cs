@@ -25,7 +25,8 @@ namespace RestFest.Todo.Website.Controllers
                         Id = 1,
                         Title = "foo",
                         Text="Todo this",
-                        Owner=UserController._users[0]
+                        Owner=UserController._users[0],
+                        Status = "open"
 
                     },
                     new Item
@@ -33,14 +34,16 @@ namespace RestFest.Todo.Website.Controllers
                         Id = 2,
                         Title = "bar",
                         Text="Todo that",
-                        Owner=UserController._users[0]
+                        Owner=UserController._users[0],
+                        Status = "closed"
                     },
                     new Item
                     {
                         Id = 3,
                         Title = "bleh",
                         Text="Todo stuff",
-                        Owner=UserController._users[1]
+                        Owner=UserController._users[1],
+                        Status="open"
                     }
                 };
             }
@@ -61,7 +64,6 @@ namespace RestFest.Todo.Website.Controllers
         [Route("Users/{userid}/Items/Open", Name = "GetOpenItems")]
         public IHttpActionResult GetOpenItems(int userid)
         {
-            //TODO: Fix this query to only return open items
             var items = _items.Where(i => i.Owner.Id == userid && i.Status == "open");
 
             var usersResourceList = new SimpleResourceList<Item>();
@@ -73,8 +75,7 @@ namespace RestFest.Todo.Website.Controllers
         [Route("Users/{userid}/Items/Closed", Name = "GetClosedItems")]
         public IHttpActionResult GetClosedItems(int userid) 
         {
-            //TODO: Fix this query to only return open items
-            var items = _items.Where(i => i.Owner.Id == userid && i.Status == "close");
+            var items = _items.Where(i => i.Owner.Id == userid && i.Status == "closed");
 
             var usersResourceList = new SimpleResourceList<Item>();
             usersResourceList.Items = items.ToList();

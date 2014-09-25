@@ -59,6 +59,8 @@ namespace RestFest.Todo.Website.Controllers
         {
             var user = _users.FirstOrDefault(u => u.Id == userid);
             user.Relations.Add("items", new Link() { Href = Url.Link("GetItems", new { userid = userid }) });
+            user.Relations.Add("openitems", new Link() { Href = Url.Link("GetOpenItems", new { userid = userid }) });
+            user.Relations.Add("closeditems", new Link() { Href = Url.Link("GetClosedItems", new { userid = userid }) });
 
             return Ok(user);
         }
