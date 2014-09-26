@@ -45,11 +45,6 @@ namespace RestFest.Todo.Website.Controllers
                         PhoneNumber = "15556666666"
                     }
                 };
-
-                foreach (var u in _users)
-                {
-                    u.Relations.Add("self", new Link { Href = "http://restfesttodo.azurewebsites.net/Users/" + u.Id.ToString() });
-                }
             }
         }
 
@@ -57,6 +52,13 @@ namespace RestFest.Todo.Website.Controllers
         public IHttpActionResult GetUsers() 
         { 
             var usersResourceList = new SimpleResourceList<User>();
+
+            foreach (var u in _users)
+            {
+                SetLinkRelations(u);
+                // u.Relations.Add("self", new Link { Href = "http://restfesttodo.azurewebsites.net/Users/" + u.Id.ToString() });
+            }
+            
             usersResourceList.Items = _users;
 
             return Ok(usersResourceList);
@@ -76,25 +78,32 @@ namespace RestFest.Todo.Website.Controllers
         {
             var user = _users.FirstOrDefault(u => u.Id == userid);
 
-            if (!user.Relations.ContainsKey("items")) {
-                user.Relations.Add("items", new Link() { Href = Url.Link("GetItems", new { userid = userid }) });
-            }
-
-            if (!user.Relations.ContainsKey("openitems")) {
-                user.Relations.Add("openitems", new Link() { Href = Url.Link("GetOpenItems", new { userid = userid }) });
-            }
-                
-            if (!user.Relations.ContainsKey("closeditems")) {
-                user.Relations.Add("closeditems", new Link() { Href = Url.Link("GetClosedItems", new { userid = userid }) });
-            }
+            SetLinkRelations(user);
             return Ok(user);
+        }
+
+        private void SetLinkRelations(User user)
+        {
+            AddUserIdBasedRelation(user, "self", "GetUser");
+            AddUserIdBasedRelation(user, "items", "GetItems");
+            AddUserIdBasedRelation(user, "openitems", "GetOpenItems");
+            AddUserIdBasedRelation(user, "closeditems", "GetClosedItems");
+        }
+
+        private void AddUserIdBasedRelation(User user, string rel, string routeName)
+        {
+            if (!user.Relations.ContainsKey(rel))
+            {
+                user.Relations.Add(rel, new Link() {Href = Url.Link(routeName, new {userid = user.Id})});
+            }
         }
 
         [Route("Users/", Name="PostUser")]
         public IHttpActionResult PostUser(User user)
         {
             user.Id = _users.Max(p => p.Id) + 1;
-            user.Relations.Add("self", new Link { Href = Url.Link("GetUser", new { userid = user.Id }) });
+            // user.Relations.Add("self", new Link { Href = Url.Link("GetUser", new { userid = user.Id }) });
+            SetLinkRelations(user);
 
             
             _users.Add(user);
