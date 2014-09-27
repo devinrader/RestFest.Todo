@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 
 using PointW.MediaTypes.Formatters.Hal;
@@ -29,6 +30,7 @@ namespace RestFest.Todo.Website
             
             config.Formatters.Clear();
             config.Formatters.Add(new HalJsonMediaTypeFormatter { Indent=true });
+            config.Formatters.Add(new FormUrlEncodedMediaTypeFormatter());
         }
     }
 }

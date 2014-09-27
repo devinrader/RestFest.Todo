@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 
 using RestFest.Todo.Website.Models;
@@ -110,9 +111,11 @@ namespace RestFest.Todo.Website.Controllers
         }
 
         [Route("Users/{userid}/Items/{itemid}/Assign")]
-        public IHttpActionResult PutAssignment(int userid, int itemid, [FromBody]string username)
-        {            
+        public IHttpActionResult PutAssignment(int userid, int itemid, FormDataCollection formData)
+        {
+            var username = formData["username"];
             var item = _items.Select().FirstOrDefault(i => i.Id == itemid);
+
             if (item == null)
             {
                 return NotFound();
