@@ -95,6 +95,8 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\Repository\IRepository.cs" />
+    <Compile Include="Models\Repository\Repository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
